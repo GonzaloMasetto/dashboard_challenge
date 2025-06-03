@@ -1,33 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+// import { useState } from 'react'
+import useUsuarios from './hooks/useUsuarios'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
 
+  const {usuariosConPosts} = useUsuarios()
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <section className='p-6'>
+        <div className='rounded-tl-lg'>
+          <table className='w-full text-center border-gray-300 rounded-lg'>
+            <caption className='mb-4 text-lg font-semibold text-gray-800'>Listado de usuarios</caption>
+            <thead className="bg-gray-100 w-full ">
+              <tr>
+                <th className='px-4 py-2'>ID</th>
+                <th className='px-4 py-2'>Name</th>
+                <th className='px-4 py-2'>Username</th>
+                <th className='px-4 py-2'>Cantidad</th>
+                <th className='px-4 py-2'>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {usuariosConPosts?.map((usuario) => (
+                <tr key={usuario.id} className="hover:bg-gray-100">
+                  <td className='px-4 py-2'>{usuario.id}</td>
+                  <td className='px-4 py-2'>{usuario.name}</td>
+                  <td className='px-4 py-2'>{usuario.username}</td>
+                  <td className='px-4 py-2'>{usuario.cantidad}</td>
+                  <td className='px-4 py-2'>
+                    <button className='px-2 mr-3 bg-green-300 rounded-xl'>Editar</button>
+                    <button className='px-2 bg-red-300 rounded-xl'>Eliminar</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
     </>
   )
 }
